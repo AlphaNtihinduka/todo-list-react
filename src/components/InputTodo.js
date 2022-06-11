@@ -1,38 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-function InputTodo({ addTodoProps }) {
-  const [title, setTitle] = useState({ title: '' });
+class InputTodo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+    };
+  }
 
-  const onChange = (e) => {
-    setTitle({
+  onChange = (e) => {
+    this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmitHandle = (event) => {
-    event.preventDefault();
-    if (title.title.trim()) {
-      addTodoProps(title.title);
-      setTitle({ title: '' });
-    } else {
-      alert('Please write item');
+  onSubmit = (e) => {
+    e.preventDefault();
+    const { title } = this.state;
+    const { addTodoProps } = this.props;
+    if (title.trim()) {
+      addTodoProps(title);
+      this.setState({
+        title: '',
+      });
     }
+    return false;
   };
-  return (
-    <div>
-      <form onSubmit={onSubmitHandle}>
+
+  render() {
+    const { title } = this.state;
+    return (
+      <form onSubmit={this.onSubmit} className="form-container">
         <input
           type="text"
-          placeholder="Add todo..."
-          value={title.title}
           name="title"
-          onChange={onChange}
+          className="input-text"
+          placeholder="Add new task"
+          value={title}
+          onChange={this.onChange}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" className="input-submit">
+          Add
+        </button>
       </form>
-    </div>
-  );
+    );
+  }
 }
 
 InputTodo.propTypes = {
