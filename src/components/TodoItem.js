@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../CSS/todoItem.css';
 
-export class TodoItem extends React.PureComponent {
+class TodoItem extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -23,12 +24,12 @@ export class TodoItem extends React.PureComponent {
   };
 
   render() {
-    // const completedStyle = {
-    //   fontStyle: 'italic',
-    //   color: '#595959',
-    //   opacity: 0.4,
-    //   textDecoration: 'line-through',
-    // };
+    const completedStyle = {
+      fontStyle: 'italic',
+      color: '#595959',
+      opacity: 0.4,
+      textDecoration: 'line-through',
+    };
 
     const { todo } = this.props;
     const { completed, id, title } = todo;
@@ -81,5 +82,3 @@ TodoItem.propTypes = {
 };
 
 export default TodoItem;
-
-// mariana
